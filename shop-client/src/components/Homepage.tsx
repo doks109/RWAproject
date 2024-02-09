@@ -1,50 +1,60 @@
 import React from 'react';
 import './style/Homepage.css';
 import Typography from "@mui/material/Typography";
+import { Box } from '@mui/material';
+import Front from "./style/front.jpg";
+import Outside from "./style/outside.jpg";
 
 function Homepage(){
     return (
         <>
             <section className="jumbotron">
-                <div className="heading-text">
-                    <Typography variant='h3' sx={{ mb: 3, pr: 3 }}>
-                        Shop
+                <div className={"naslovni-tekst"}>
+                    <Typography display={'block'} variant={'h4'} color='text.secondary'>
+                        Pokvario Vam se hladnjak ili televizor?
                     </Typography>
-                    <Typography sx={{ pr: 3 }} color='text.secondary'>
-                        Increase your engagement rates
+                    <Typography display={'block'} variant={"h4"} color='text.secondary'>
+                        Tražite novu perilicu za suđe?
                     </Typography>
-                </div>
-                <img src="/message_sentl.png" />
-            </section>
-            <section className="form-section">
-                <Typography variant='h4' sx={{ mb: 3, pt: 5 }}>
-                    Connect With Your Customers
-                </Typography>
-                <Typography sx={{ mb: 3 }}>
-                    Reach more customers
-                </Typography>
-            </section>
-
-            <section className="chart-section">
-                <div className="text">
-                    <Typography variant='h4' sx={{ mb: 3 }}>
-                        View our delivery success rates
+                    <Typography display={'block'} variant='h2'>
+                        Dobrodošli na pravo mjesto!
                     </Typography>
-                    <Typography sx={{ mb: 3 }}>
-                        You will have all the data<br />
+                    <Typography display={'block'} variant={'h1'}>
+                        Shop d.o.o.
                     </Typography>
-                    <Typography sx={{ mb: 3 }}>
+                    <Typography display={'block'} variant={'h4'} color='text.secondary'>
+                        Pronađite savršen uređaj za sebe!
                     </Typography>
                 </div>
+                <Box component="img" alt="Naslovna slika." src={Front} />
             </section>
 
-            <section className="latest-messages-section">
-                <Typography variant='h4' sx={{ mb: 2 }}>
-                    Some
-                </Typography>
-                <Typography sx={{ mb: 2 }}>
-                    This is an example
-                </Typography>
+            <section className="about">
+                <Box component="img" alt="Slika iz daljine." src={Outside}/>
+                <div className={"about-tekst"}>
+                    <Typography display={'block'} variant={'h2'}>
+                        O nama
+                    </Typography>
+                    <Typography display={'block'} variant={'h5'}>
+                        Nalazimo se u Buzetu na adresi Sportska ulica 89.
+                    </Typography>
+                </div>
+            </section>
+
+            <section className="marke">
+                <div className="marke-tekst">
+                    <Typography variant='h4'>
+                        Zastupljene robne marke
+                    </Typography>
+                </div>
+            </section>
+
+            <section className="ponuda">
+                <div className={"ponuda-tekst"}>
+                    <Typography variant='h4'>
+                        Ponuda
+                    </Typography>
+                </div>
             </section>
         </>
     );

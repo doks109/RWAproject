@@ -1,12 +1,18 @@
-
 .jumbotron {
-    margin-top: 5rem;
-    margin-left: 24px;
+    text-align: right;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
     display: flex;
 }
 
+.jumbotron .naslovni-tekst{
+    text-align: left;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
+}
+
 img {
-    width: 70%;
+    width: 60%;
 }
 
 @media only screen and (min-width: 1184px) {
@@ -18,65 +24,93 @@ img {
 @media only screen and (max-width: 933px) {
     .jumbotron {
         flex-direction: column;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
-
+    .jumbotron .naslovni-tekst{
+        text-align: center;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
     .jumbotron img {
-        margin-top: 5rem;
+        width: 100%;
     }
 }
 
-.form-section {
-    text-align: center;
-    margin-bottom: 4rem;
-    margin-top: 4rem;
-    padding: 10px;
-    background-color: #F5F6FA;
-}
-
-.chart-section {
+.about {
+    padding: 3rem 3rem 3rem 3rem;
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-around;;
-}
-
-.chart-section .text {
-    padding: 25px;
-    width: 40%;
-}
-
-.chart-section .chart {
-    width: 30%;
-}
-
-@media only screen and (max-width: 1100px) {
-    .chart-section .text {
-        padding: 25px;
-        width: 50%;
-    }
-
-    .chart-section .chart {
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 812px) {
-    .chart-section {
-        flex-direction: column;
-    }
-
-    .chart-section .text {
-        padding: 25px;
-        width: 100%;
-    }
-
-    .chart-section .chart {
-        width: 100%;
-    }
-}
-
-.latest-messages-section {
     background-color: #F5F6FA;
-    padding: 2rem;
-    text-align: center;
+}
+
+.about .about-tekst{
+    text-align: right;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
+}
+
+@media only screen and (min-width: 1184px) {
+    .about {
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 933px) {
+    .about{
+        flex-direction: column;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    .about .about-tekst{
+        text-align: center;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    .about img {
+        width: 100%;
+    }
+}
+
+.marke {
+    text-align: right;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
+    display: flex;
+}
+
+.marke .marke-tekst {
+    text-align: left;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
+}
+
+@media only screen and (min-width: 1184px) {
+    .marke {
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 933px) {
+    .marke{
+        flex-direction: column;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    .marke .marke-tekst{
+        text-align: center;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    .marke img {
+        width: 100%;
+    }
+}
+
+.ponuda {
+    padding: 3rem 3rem 3rem 3rem;
+    display: flex;
+    background-color: #F5F6FA;
+}
+
+.ponuda .ponuda-tekst {
+    text-align: right;
+    margin: 3rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 3rem 3rem;
 }
