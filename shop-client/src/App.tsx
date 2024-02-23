@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Homepage from "./components/Homepage";
 import ResponsiveAppBar from "./components/Navigation";
 import Posts from "./components/Posts";
-import AboutUs from "./components/Posts";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
                 {/* <Route path="/test" element={ <Test/> } /> */}
                 <Route path="/about" element={ <AboutUs/> } />
                 <Route path="/ponuda" element={ <Posts/> } />
+                <Route path="/akcija" element={ <Posts/> } />
             </Routes>
             </div>
             <Footer />

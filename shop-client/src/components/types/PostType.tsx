@@ -1,5 +1,5 @@
 export type Post = {
-    id: string;
+    _id: string;
     ime: string;
     kategorija: string;
     opis: string;

@@ -12,7 +12,7 @@
 }
 
 img {
-    width: 60%;
+    width: 50%;
 }
 
 @media only screen and (min-width: 1184px) {
@@ -74,12 +74,20 @@ img {
     margin: 3rem 3rem 3rem 3rem;
     padding: 3rem 3rem 3rem 3rem;
     display: flex;
+    align-items: center;
 }
 
 .marke .marke-tekst {
     text-align: left;
     margin: 3rem 3rem 3rem 3rem;
     padding: 3rem 3rem 3rem 3rem;
+}
+
+.marke .slider {
+    maxwidth: "1200px";
+    width: 50%;
+    aspect-ratio: 10 / 4;
+    margin: 0 auto;
 }
 
 @media only screen and (min-width: 1184px) {
@@ -98,8 +106,12 @@ img {
         margin: 0.5rem 0.5rem 0.5rem 0.5rem;
         padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
-    .marke img {
+    .marke .slider {
+        maxwidth: "1200px";
+        max-height: 150px;
         width: 100%;
+        aspect-ratio: 10 / 4;
+        margin: 0 auto;
     }
 }
 

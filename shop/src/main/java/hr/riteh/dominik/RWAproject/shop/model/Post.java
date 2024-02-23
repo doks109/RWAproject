@@ -1,10 +1,12 @@
 package hr.riteh.dominik.RWAproject.shop.model;
 
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "items")
 public class Post {
+    @Id
+    private String _id;
     private String ime;
     private String kategorija;
     private String opis;
@@ -12,17 +14,21 @@ public class Post {
     private boolean raspolozivo;
     private String putanjaSlike;
 
-
     @Override
     public String toString() {
         return "Post{" +
-                "ime='" + ime + '\'' +
+                "_id=" + _id +
+                ", ime='" + ime + '\'' +
                 ", kategorija='" + kategorija + '\'' +
                 ", opis='" + opis + '\'' +
                 ", cijena=" + cijena +
                 ", raspolozivo=" + raspolozivo +
                 ", putanjaSlike='" + putanjaSlike + '\'' +
                 '}';
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public String getIme() {

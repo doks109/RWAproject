@@ -4,12 +4,21 @@ import Typography from "@mui/material/Typography";
 import { Box } from '@mui/material';
 import Front from "./style/front.jpg";
 import Outside from "./style/outside.jpg";
+import Gorenje from "./style/gorenje.jpeg";
+import Samsung from "./style/samsung.png";
+import Lg from "./style/lg.jpg";
+import Toshiba from "./style/toshiba.png";
+import Panasonic from "./style/panasonic.jpg";
+
+import Slider from "./Slider";
+
+const Images = [Gorenje, Samsung, Lg, Toshiba, Panasonic];
 
 function Homepage(){
     return (
         <>
             <section className="jumbotron">
-                <div className={"naslovni-tekst"}>
+                <div className={"naslovni-tekst"} >
                     <Typography display={'block'} variant={'h4'} color='text.secondary'>
                         Pokvario Vam se hladnjak ili televizor?
                     </Typography>
@@ -46,6 +55,9 @@ function Homepage(){
                     <Typography variant='h4'>
                         Zastupljene robne marke
                     </Typography>
+                </div>
+                <div className="slider">
+                    <Slider imageUrls={Images} />
                 </div>
             </section>
 
