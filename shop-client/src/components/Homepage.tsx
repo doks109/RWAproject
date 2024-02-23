@@ -11,6 +11,7 @@ import Toshiba from "./style/toshiba.png";
 import Panasonic from "./style/panasonic.jpg";
 
 import Slider from "./Slider";
+import Posts from './Posts';
 
 const Images = [Gorenje, Samsung, Lg, Toshiba, Panasonic];
 
@@ -64,8 +65,9 @@ function Homepage(){
             <section className="ponuda">
                 <div className={"ponuda-tekst"}>
                     <Typography variant='h4'>
-                        Ponuda
+                        Izdvojeno iz ponude
                     </Typography>
+                    <Posts numberOfPosts={3} />
                 </div>
             </section>
         </>

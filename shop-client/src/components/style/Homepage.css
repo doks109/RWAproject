@@ -37,7 +37,7 @@ img {
 }
 
 .about {
-    padding: 3rem 3rem 3rem 3rem;
+    padding: 6rem 6rem 6rem 6rem;
     display: flex;
     background-color: #F5F6FA;
 }
@@ -57,7 +57,7 @@ img {
 @media only screen and (max-width: 933px) {
     .about{
         flex-direction: column;
-        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+        padding: 3rem 3rem 3rem 3rem;
     }
     .about .about-tekst{
         text-align: center;
@@ -84,7 +84,7 @@ img {
 }
 
 .marke .slider {
-    maxwidth: "1200px";
+    max-width: 1200px;
     width: 50%;
     aspect-ratio: 10 / 4;
     margin: 0 auto;
@@ -107,7 +107,7 @@ img {
         padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
     .marke .slider {
-        maxwidth: "1200px";
+        max-width: 1200px;
         max-height: 150px;
         width: 100%;
         aspect-ratio: 10 / 4;
@@ -117,12 +117,28 @@ img {
 
 .ponuda {
     padding: 3rem 3rem 3rem 3rem;
-    display: flex;
     background-color: #F5F6FA;
 }
 
 .ponuda .ponuda-tekst {
-    text-align: right;
-    margin: 3rem 3rem 3rem 3rem;
-    padding: 3rem 3rem 3rem 3rem;
+    text-align: center;
+    margin: 2rem 2rem 2rem 2rem;
+}
+
+@media only screen and (min-width: 1184px) {
+    .ponuda {
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        background-color: #F5F6FA;
+    }
+}
+
+@media only screen and (max-width: 933px) {
+    .ponuda{
+        flex-direction: column;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    .ponuda .ponuda-tekst {
+        text-align: center;
+        margin: 0 0 0 0;
+    }
 }

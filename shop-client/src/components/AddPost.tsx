@@ -19,6 +19,7 @@ function AddPost(){
         putanjaSlike: ''
     });
 
+
     const onSubmit = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
         const { _id, ...postData } = formData;
@@ -38,6 +39,10 @@ function AddPost(){
             ...prevState,
             [name]: isChecked
         }));
+    };
+
+    const handleClose = () =>{
+        navigate("/ponuda");
     };
 
     return (
@@ -86,7 +91,8 @@ function AddPost(){
                             label="Putanja slike"
                             required
                         /><br />
-                        <Button type="submit" variant="contained" color="primary">Dodaj artikl</Button>
+                        <Button type="submit" variant="contained" color="primary">Dodaj artikl</Button><br />
+                        <Button onClick={handleClose} variant="contained" color="primary">Cancel</Button>
                     </FormControl>
                 </form>
             </Grid>
