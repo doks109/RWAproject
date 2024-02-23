@@ -6,6 +6,7 @@ import Homepage from "./components/Homepage";
 import ResponsiveAppBar from "./components/Navigation";
 import Posts from "./components/Posts";
 import AboutUs from "./components/AboutUs";
+import AddPost from "./components/AddPost";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
                 {/* <Route path="/test" element={ <Test/> } /> */}
                 <Route path="/about" element={ <AboutUs/> } />
                 <Route path="/ponuda" element={ <Posts/> } />
+                <Route path="/addPost" element={ <AddPost/> } />
                 <Route path="/akcija" element={ <Posts/> } />
             </Routes>
             </div>
