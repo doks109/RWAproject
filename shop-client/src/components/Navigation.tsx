@@ -14,7 +14,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
 import Logo from "./style/logo.png";
+import AuthService from "./auth/AuthService";
 interface Props {
     window?: () => Window;
 }
@@ -31,6 +33,7 @@ export const navItems = [
 export default function DrawerAppBar(props: Props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
@@ -53,6 +56,18 @@ export default function DrawerAppBar(props: Props) {
             </List>
         </Box>
     );
+
+    const handleLogin = () => {
+        navigate("/login");
+    }
+    const handleRegister = () => {
+        navigate("/register");
+    }
+    const handleLogout = () => {
+        AuthService.logout();
+        navigate("/");
+    }
+
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -123,6 +138,18 @@ export default function DrawerAppBar(props: Props) {
                             </Button>
                         ))}
                     </Box>
+                    <Box>
+                        <Button onClick={handleLogin} color="inherit">
+                            Login
+                        </Button>
+                        <Button onClick={handleRegister} color="inherit">
+                            Register
+                        </Button>
+                        <Button onClick={handleLogout} color="inherit">
+                            Logout
+                        </Button>
+                    </Box>
+
                 </Toolbar>
             </AppBar>
             <Box component="nav">

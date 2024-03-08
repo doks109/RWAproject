@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Post } from './types/PostType';
 import {useNavigate} from "react-router-dom";
-import {Alert, Button, Checkbox, FormControl, FormControlLabel, TextField} from "@mui/material";
+import {Box, Button, Checkbox, CssBaseline, FormControl, FormControlLabel, TextField, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 
@@ -46,8 +46,17 @@ function AddPost(){
     };
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="xs">
             <Grid container justifyContent="center">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        mt: 20,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}>
+                <Typography variant="h5">Dodaj artikl</Typography>
                 <form onSubmit={(e) => onSubmit(e)} >
                     <FormControl>
                         <TextField
@@ -95,6 +104,7 @@ function AddPost(){
                         <Button onClick={handleClose} variant="contained" color="primary">Cancel</Button>
                     </FormControl>
                 </form>
+                </Box>
             </Grid>
         </Container>
     );

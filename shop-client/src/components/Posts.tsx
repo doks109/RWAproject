@@ -6,19 +6,22 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardMedia, Fab, Stack } from '@mui/material';
+import {Alert, Button, Card, CardMedia, Fab, Stack} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Divider from "@mui/material/Divider";
-import UpdatePostDialog from './UpdatePostDialog'; // Import the UpdatePostDialog component
+import UpdatePostDialog from './UpdatePostDialog';
+import AuthService from "./auth/AuthService";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Tooltip from '@mui/material/Tooltip';
 
 function Posts(props: { numberOfPosts?: number; }) {
     const [posts, setPosts] = useState<Post[]>([]);
     const { id } = useParams();
     const navigate = useNavigate();
-    const [selectedPost, setSelectedPost] = useState<Post | null>(null); // State to store the selected post for update
-    const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false); // State to manage the open/close state of the update dialog
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+    const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
 
     const fetchPosts = async (numberOfPosts?: number) => {
         const suffix = numberOfPosts ? `?numberOfPosts=${numberOfPosts}` : "";
@@ -71,11 +74,44 @@ function Posts(props: { numberOfPosts?: number; }) {
         }
     };
 
+    const isAdmin = () => {
+        const user = AuthService.getCurrentUser();
+        if(user){
+            if(user.roles.includes("ROLE_ADMIN")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const isUser = () => {
+        const user = AuthService.getCurrentUser();
+        if(user){
+            if(user.roles.includes("ROLE_USER")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const handleBuy = async (id: string) => {
+
+    }
+
+    const handleLogin = async () => {
+        navigate("/login");
+    }
+
+
     return (
         <Container maxWidth="lg">
-            <Fab size="small" color="primary" aria-label="add" onClick={() => navigate("/addPost")}>
-                <AddIcon />
-            </Fab>
+            {isAdmin()
+                ?
+                <Fab size="small" color="primary" aria-label="add" onClick={() => navigate("/addPost")}>
+                    <AddIcon />
+                </Fab> : <Box></Box>
+            }
+
             <Grid container spacing={2}>
                 {posts.map((post, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
@@ -118,16 +154,50 @@ function Posts(props: { numberOfPosts?: number; }) {
                                     </Typography>
                                 </Stack>
                             </Box>
-                            <Box>
-                                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                    <Fab size="small" color="secondary" aria-label="edit">
-                                        <EditIcon onClick={() => handleUpdatePost(post._id)} />
-                                    </Fab>
-                                    <DeleteIcon onClick={() => deletePost(post._id)}>
-                                        Obrisi
-                                    </DeleteIcon>
-                                </Stack>
-                            </Box>
+                            {isAdmin()
+                                ?
+                                <Box>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                        <Fab size="small" color="secondary" aria-label="edit">
+                                            <EditIcon onClick={() => handleUpdatePost(post._id)} />
+                                        </Fab>
+                                        <DeleteIcon onClick={() => deletePost(post._id)}>
+                                            Obrisi
+                                        </DeleteIcon>
+                                    </Stack>
+                                </Box>
+                                : <Box />
+                            }
+
+                            {isUser()
+                                ?
+                                <Box>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="right">
+                                        <Fab size="small" color="primary" aria-label="buy">
+                                            <ShoppingCartIcon onClick={() => handleBuy(post._id)} />
+                                        </Fab>
+                                    </Stack>
+                                </Box>
+                                :
+                                <Box/>
+                            }
+                            {(!isUser() && !isAdmin())
+                                ?
+                                <Box>
+                                    <Stack justifyContent="space-between" alignItems="right">
+                                        <Fab size="small" color="primary" aria-label="buy">
+                                            <Tooltip disableFocusListener title={"Prijavi se ili registriraj !"}>
+                                                <ShoppingCartIcon onClick={() => handleLogin()} />
+                                            </Tooltip>
+                                        </Fab>
+                                        <Typography>
+                                            Prijavi se ili registriraj za nastavak.
+                                        </Typography>
+                                    </Stack>
+                                </Box>
+                                :
+                                <Box></Box>
+                            }
                         </Card>
                     </Grid>
                 ))}

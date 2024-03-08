@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './style/Homepage.css';
 import Typography from "@mui/material/Typography";
 import { Box } from '@mui/material';
