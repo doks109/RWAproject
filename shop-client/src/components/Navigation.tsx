@@ -1,14 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -16,12 +9,12 @@ import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import {useNavigate} from "react-router-dom";
 import Logo from "./style/logo.png";
+import User from "./style/user.jpg";
 import AuthService from "./auth/AuthService";
-interface Props {
-    window?: () => Window;
-}
+import {Avatar, Menu, MenuItem, Tooltip} from '@mui/material';
+import Container from "@mui/material/Container";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const drawerWidth = 240;
 
 export const navItems = [
     { title: "Home", url: "/"},
@@ -30,61 +23,49 @@ export const navItems = [
     { title: "Akcija", url: "/akcija" }
 ];
 
-export default function DrawerAppBar(props: Props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+export const settings = [
+    { title: "Prijava", url: "/login"},
+    { title: "Registracija", url: "/register" },
+];
+
+export default function ResponsiveAppBar() {
     const navigate = useNavigate();
 
-    const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
-    };
-
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                Shop d.o.o.
-            </Typography>
-            <Divider />
-            <List>
-                {navItems.map((item) => (
-                    <ListItem key={item.url} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }} component={RouterLink} to={item.url}>
-                            <ListItemText primary={item.title} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
-
-    const handleLogin = () => {
-        navigate("/login");
-    }
-    const handleRegister = () => {
-        navigate("/register");
-    }
     const handleLogout = () => {
         AuthService.logout();
         navigate("/");
     }
 
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    const handleOpenCart = () =>{
+        navigate("/cart")
+    }
+    const handleLogin = () =>{
+        navigate("/login")
+    }
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar component="nav" position={"static"}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+        <AppBar position="static">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
                     <Box
                         component="img"
                         sx={{
@@ -113,6 +94,52 @@ export default function DrawerAppBar(props: Props) {
                         Shop d.o.o.
                     </Typography>
 
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                        >
+                            {navItems.map((navItem, index) => (
+                                <MenuItem key={index} onClick={handleCloseNavMenu} component={RouterLink} to={navItem.url}>
+                                    <Typography textAlign="center">{navItem.title}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                    <Box
+                        component="img"
+                        sx={{
+                            mr: 2, mt: 0, mb: 0,
+                            width: "12%",
+                            display: { xs: 'flex', md: 'none' },
+                        }}
+                        alt="Logo."
+                        src={Logo}
+                    />
                     <Typography
                         variant="h5"
                         noWrap
@@ -131,44 +158,71 @@ export default function DrawerAppBar(props: Props) {
                     >
                         Shop d.o.o.
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {navItems.map((item) => (
-                            <Button key={item.url} sx={{ color: '#fff' }} component={RouterLink} to={item.url}>
-                                {item.title}
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {navItems.map((navItem, index) => (
+                            <Button
+                                key={index}
+                                onClick={handleCloseNavMenu}
+                                component={RouterLink}
+                                to={navItem.url}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                {navItem.title}
                             </Button>
                         ))}
                     </Box>
-                    <Box>
-                        <Button onClick={handleLogin} color="inherit">
-                            Login
-                        </Button>
-                        <Button onClick={handleRegister} color="inherit">
-                            Register
-                        </Button>
-                        <Button onClick={handleLogout} color="inherit">
-                            Logout
-                        </Button>
-                    </Box>
 
+
+                    {AuthService.isUser()
+                        ?
+                        <Box sx={{ flexGrow: 0 }}>
+                            <IconButton color={"inherit"} onClick={handleOpenCart} sx={{ mr: 2, p: 0 }}>
+                                <ShoppingCartIcon />
+                            </IconButton>
+                        </Box>
+                        :
+                        <Box sx={{ flexGrow: 0 }}>
+                            <IconButton color={"inherit"} onClick={handleLogin} sx={{ mr: 2, p: 0 }}>
+                                <ShoppingCartIcon />
+                            </IconButton>
+                        </Box>
+                    }
+
+
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton size={"large"} onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="User picture" src={User}/>
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting, index) => (
+                                <MenuItem key={index} onClick={handleCloseUserMenu} component={RouterLink} to={setting.url}>
+                                    <Typography textAlign="center">{setting.title}</Typography>
+                                </MenuItem>
+                            ))}
+                            <MenuItem>
+                                <Typography onClick={handleLogout} textAlign="center">{"Odjavi se"}</Typography>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
                 </Toolbar>
-            </AppBar>
-            <Box component="nav">
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-            </Box>
-        </Box>
+            </Container>
+        </AppBar>
     );
 }

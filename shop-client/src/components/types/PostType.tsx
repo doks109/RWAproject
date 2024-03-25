@@ -4,6 +4,7 @@ export type Post = {
     kategorija: string;
     opis: string;
     cijena: number;
-    raspolozivo: boolean;
+    popust: number,
+    raspolozivo: number;
     putanjaSlike: string;
 }

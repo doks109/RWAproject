@@ -1,5 +1,6 @@
 package hr.riteh.dominik.RWAproject.shop.controller;
 
+import hr.riteh.dominik.RWAproject.shop.model.Cart;
 import hr.riteh.dominik.RWAproject.shop.model.ERole;
 import hr.riteh.dominik.RWAproject.shop.model.Role;
 import hr.riteh.dominik.RWAproject.shop.model.User;
@@ -7,6 +8,7 @@ import hr.riteh.dominik.RWAproject.shop.payload.JwtResponse;
 import hr.riteh.dominik.RWAproject.shop.payload.LoginRequest;
 import hr.riteh.dominik.RWAproject.shop.payload.MessageResponse;
 import hr.riteh.dominik.RWAproject.shop.payload.SignUpRequest;
+import hr.riteh.dominik.RWAproject.shop.repository.CartRepository;
 import hr.riteh.dominik.RWAproject.shop.repository.RoleRepository;
 import hr.riteh.dominik.RWAproject.shop.repository.UserRepository;
 import hr.riteh.dominik.RWAproject.shop.security.jwt.JwtUtils;
@@ -38,6 +40,8 @@ public class AuthController {
 
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    CartRepository cartRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -93,22 +97,22 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
+                if (role.equals("admin")) {
+                    Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
+                } else {
+                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(userRole);
                 }
             });
         }
 
         user.setRoles(roles);
+        Cart cart = new Cart();
+        cartRepository.save(cart);
+        user.setCartId(cart.getId());
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Uspješna registracija !"));

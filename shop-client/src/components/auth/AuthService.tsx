@@ -42,11 +42,42 @@ const AuthService = () => {
         return null;
     };
 
+    const isAdmin = () => {
+        const user = getCurrentUser();
+        if(user){
+            if(user.roles.includes("ROLE_ADMIN")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const isUser = () => {
+        const user = getCurrentUser();
+        if (user) {
+            if (user.roles.includes("ROLE_USER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const getToken = () =>{
+        const user = getCurrentUser();
+        if(user){
+            return user.accessToken;
+        }
+        return "";
+    }
+
     return {
         login,
         logout,
         register,
-        getCurrentUser
+        getCurrentUser,
+        isAdmin,
+        isUser,
+        getToken
     };
 };
 

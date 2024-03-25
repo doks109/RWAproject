@@ -11,17 +11,19 @@ public class Post {
     private String kategorija;
     private String opis;
     private double cijena;
-    private boolean raspolozivo;
+    private int popust;
+    private int raspolozivo;
     private String putanjaSlike;
 
     @Override
     public String toString() {
         return "Post{" +
-                "_id=" + _id +
+                "_id='" + _id + '\'' +
                 ", ime='" + ime + '\'' +
                 ", kategorija='" + kategorija + '\'' +
                 ", opis='" + opis + '\'' +
                 ", cijena=" + cijena +
+                ", popust=" + popust +
                 ", raspolozivo=" + raspolozivo +
                 ", putanjaSlike='" + putanjaSlike + '\'' +
                 '}';
@@ -63,11 +65,11 @@ public class Post {
         this.cijena = cijena;
     }
 
-    public boolean isRaspolozivo() {
+    public int getRaspolozivo() {
         return raspolozivo;
     }
 
-    public void setRaspolozivo(boolean raspolozivo) {
+    public void setRaspolozivo(int raspolozivo) {
         this.raspolozivo = raspolozivo;
     }
 
@@ -77,6 +79,13 @@ public class Post {
 
     public void setPutanjaSlike(String putanjaSlike) {
         this.putanjaSlike = putanjaSlike;
+    }
+    public int getPopust() {
+        return popust;
+    }
+
+    public void setPopust(int popust) {
+        this.popust = popust;
     }
 
     public Post() {

@@ -14,7 +14,7 @@ const Login = () => {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
         if (currentUser) {
-            navigate("/about");
+            navigate("/ponuda" );
         }
     }, [navigate]);
 

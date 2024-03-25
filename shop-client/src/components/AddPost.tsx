@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Post } from './types/PostType';
 import {useNavigate} from "react-router-dom";
-import {Box, Button, Checkbox, CssBaseline, FormControl, FormControlLabel, TextField, Typography} from "@mui/material";
+import {Box, Button, CssBaseline, FormControl, TextField, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import AuthService from "./auth/AuthService";
 
 
 function AddPost(){
@@ -15,7 +16,8 @@ function AddPost(){
         kategorija: '',
         opis: '',
         cijena: 0,
-        raspolozivo: false,
+        popust: 0,
+        raspolozivo: 0,
         putanjaSlike: ''
     });
 
@@ -25,19 +27,23 @@ function AddPost(){
         const { _id, ...postData } = formData;
 
         try {
-            await axios.post("http://localhost:8080/addPost", postData);
+            const token = AuthService.getToken();
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            await axios.post("http://localhost:8080/addPost", postData, { headers });
             navigate("/ponuda");
         } catch (error) {
             console.error('Error adding post:', error);
         }
-    };;
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value, type } = e.target;
-        const isChecked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+        const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: isChecked
+            [name]: value
         }));
     };
 
@@ -47,7 +53,7 @@ function AddPost(){
 
     return (
         <Container maxWidth="xs">
-            <Grid container justifyContent="center">
+            <Grid container spacing={2} justifyContent="center">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -59,6 +65,7 @@ function AddPost(){
                 <Typography variant="h5">Dodaj artikl</Typography>
                 <form onSubmit={(e) => onSubmit(e)} >
                     <FormControl>
+                        <br />
                         <TextField
                             type="text"
                             name="ime"
@@ -91,7 +98,22 @@ function AddPost(){
                             label="Cijena"
                             required
                         /><br />
-                        <FormControlLabel control={<Checkbox name="raspolozivo" checked={formData.raspolozivo} onChange={handleChange}/>} label={"Raspolozivo"}/><br />
+                        <TextField
+                            type="number"
+                            name="popust"
+                            value={formData.popust}
+                            onChange={handleChange}
+                            label="Popust u %"
+                            required
+                        /><br />
+                        <TextField
+                            type="number"
+                            name="raspolozivo"
+                            value={formData.raspolozivo}
+                            onChange={handleChange}
+                            label="Raspolozivo komada"
+                            required
+                        /><br />
                         <TextField
                             type="text"
                             name="putanjaSlike"

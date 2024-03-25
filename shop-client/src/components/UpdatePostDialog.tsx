@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Checkbox, FormControlLabel } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { Post } from './types/PostType';
 
 interface UpdatePostDialogProps {
@@ -11,30 +11,22 @@ interface UpdatePostDialogProps {
 
 const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, handleUpdatePostData, post }) => {
     const [updatedData, setUpdatedData] = useState<Partial<Post>>({});
-    const [isAvailable, setIsAvailable] = useState<boolean>(post?.raspolozivo || false);
 
     useEffect(() => {
         if (!open) {
             setUpdatedData({});
-            setIsAvailable(post?.raspolozivo || false);
         }
     }, [open, post]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
-        const newValue = type === 'checkbox' ? checked : value.trim() === '' ? undefined : value;
+        const { name, value } = e.target;
 
-        if (name === 'raspolozivo') {
-            setIsAvailable(checked);
-        } else {
-            setUpdatedData(prevData => ({ ...prevData, [name]: newValue }));
-        }
+        setUpdatedData(prevData => ({ ...prevData, [name]: value }));
     };
 
     const handleUpdate = () => {
         const updatedPostData = {
             ...updatedData,
-            raspolozivo: isAvailable
         };
         handleUpdatePostData(updatedPostData);
     };
@@ -42,7 +34,6 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
     const handleCloseDialog = () => {
         handleClose();
         setUpdatedData({});
-        setIsAvailable(false);
     };
 
     return (
@@ -57,7 +48,7 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
                     type="text"
                     fullWidth
                     name="ime"
-                    value={updatedData.ime || post?.ime || ''}
+                    value={updatedData.ime}
                     onChange={handleChange}
                     required
                 />
@@ -68,7 +59,7 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
                     type="text"
                     fullWidth
                     name="opis"
-                    value={updatedData.opis || post?.opis || ''}
+                    value={updatedData.opis}
                     onChange={handleChange}
                     required
                 />
@@ -79,7 +70,7 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
                     type="text"
                     fullWidth
                     name="kategorija"
-                    value={updatedData.kategorija || post?.kategorija || ''}
+                    value={updatedData.kategorija}
                     onChange={handleChange}
                     required
                 />
@@ -90,29 +81,42 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
                     type="number"
                     fullWidth
                     name="cijena"
-                    value={updatedData.cijena || post?.cijena || ''}
+                    value={updatedData.cijena}
+                    onChange={handleChange}
+                    required
+                />
+                <TextField
+                    margin="dense"
+                    id="popust"
+                    label="Popust u %"
+                    type="number"
+                    fullWidth
+                    name="popust"
+                    value={updatedData.popust}
+                    onChange={handleChange}
+                    required
+                />
+                <TextField
+                    margin="dense"
+                    id="raspolozivo"
+                    label="Raspoloživo komada"
+                    type="number"
+                    fullWidth
+                    name="raspolozivo"
+                    value={updatedData.raspolozivo}
                     onChange={handleChange}
                     required
                 />
                 <TextField
                     type="text"
                     name="putanjaSlike"
-                    value={updatedData.putanjaSlike || post?.putanjaSlike || ''}
+                    value={updatedData.putanjaSlike}
                     onChange={handleChange}
                     label="Putanja slike"
                     fullWidth
                     required
                 />
-                <FormControlLabel
-                    control={<Checkbox name="raspolozivo" checked={isAvailable} onChange={handleChange} />}
-                    label={"Raspolozivo"}
-                />
-                <FormControlLabel
-                    control={<Checkbox name="nijeRaspolozivo" checked={!isAvailable} onChange={(e) => setIsAvailable(!e.target.checked)} />}
-                    label={"Nije raspolozivo"}
-                />
             </DialogContent>
-
             <DialogActions>
                 <Button onClick={handleCloseDialog}>Cancel</Button>
                 <Button onClick={handleUpdate}>Update</Button>

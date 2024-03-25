@@ -31,13 +31,25 @@ public class User {
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
+    public String cartId;
+
     public User(){
     }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
     public User(String username, String email, String password){
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
 
     public String getId() {
         return id;

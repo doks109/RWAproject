@@ -7,26 +7,19 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useNavigate} from "react-router-dom";
 import {Card, CardMedia, debounce, Fab, Stack} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Divider from "@mui/material/Divider";
-import UpdatePostDialog from './UpdatePostDialog';
 import AuthService from "./auth/AuthService";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tooltip from '@mui/material/Tooltip';
 
 
-function Posts(props: { numberOfPosts?: number; }) {
+function Action() {
     const [posts, setPosts] = useState<Post[]>([]);
     const navigate = useNavigate();
-    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-    const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
 
-    const fetchPosts = async (numberOfPosts?: number) => {
-        const suffix = numberOfPosts ? `?numberOfPosts=${numberOfPosts}` : "";
+    const fetchDiscount = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/posts${suffix}`);
+            const response = await axios.get(`http://localhost:8080/discount`);
             return response.data;
         } catch (error) {
             console.error('Greška kod dohvata:', error);
@@ -34,54 +27,10 @@ function Posts(props: { numberOfPosts?: number; }) {
     };
 
     useEffect(() => {
-        fetchPosts(props.numberOfPosts).then((data) => {
+        fetchDiscount().then((data) => {
             setPosts(data)
         });
     }, []);
-
-
-    const deletePost = async (id: string) => {
-        try {
-            const token = AuthService.getToken();
-            const headers = {
-                'Authorization': `Bearer ${token}`
-            };
-            await axios.delete(`http://localhost:8080/post/${id}` , { headers });
-            const updatedPosts = await fetchPosts();
-            setPosts(updatedPosts);
-        } catch (error) {
-            console.error('Greška kod brisanja:', error);
-        }
-    };
-
-    const handleUpdatePost = (id: string) => {
-        const selectedPost = posts.find(post => post._id === id) || null;
-        setSelectedPost(selectedPost);
-        setUpdateDialogOpen(true);
-    };
-
-    const handleCloseUpdateDialog = () => {
-        setUpdateDialogOpen(false);
-    };
-
-    const handleUpdatePostData = async (updatedData: Partial<Post>) => {
-        try {
-            const updatedPostData = {
-                ...selectedPost,
-                ...updatedData
-            };
-            const token = AuthService.getToken();
-            const headers = {
-                'Authorization': `Bearer ${token}`
-            };
-            await axios.patch(`http://localhost:8080/posts/${selectedPost?._id}`, updatedPostData, {headers});
-            const updatedPosts = await fetchPosts();
-            setPosts(updatedPosts);
-            setUpdateDialogOpen(false);
-        } catch (error) {
-            console.error('Greška kod update:', error);
-        }
-    };
 
 
     const handleBuy = async (id: string, kolicina: number, cijena: number) => {
@@ -94,7 +43,7 @@ function Posts(props: { numberOfPosts?: number; }) {
                 'Authorization': `Bearer ${token}`
             };
             await axios.post(`http://localhost:8080/addItem/${id}/${kolicina}/${cijena}`, userId, {headers});
-            navigate("/ponuda");
+            navigate("/akcija");
         } catch (error) {
             console.error('Greška kod kupnje', error);
         }
@@ -116,18 +65,6 @@ function Posts(props: { numberOfPosts?: number; }) {
 
     return (
         <Container maxWidth="lg">
-            {AuthService.isAdmin() &&
-                <Box alignItems="center" sx={{ display: 'flex', flexDirection: 'row', mt: 5, mb: -5}}>
-                    <Typography variant="h5">
-                        Dodaj novi artikl
-                    </Typography>
-                    <Tooltip title={"Dodaj artikl"} disableFocusListener>
-                        <Fab size="small" color="primary" aria-label="add" onClick={() => navigate("/addPost")} sx={{ ml: 2}}>
-                            <AddIcon />
-                        </Fab>
-                    </Tooltip>
-                </Box>
-            }
             <Grid container spacing={2} sx={{ mt: 5, mb: 5}}>
                 {posts.map((post, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
@@ -184,22 +121,6 @@ function Posts(props: { numberOfPosts?: number; }) {
                                     </Typography>
                                 </Stack>
                             </Box>
-                            {AuthService.isAdmin() &&
-                                <Box sx={{marginTop: "auto", mb: 2, ml: 2, mr: 2}}>
-                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Tooltip title={"Promjeni artikl"} disableFocusListener>
-                                            <Fab size="small" color="secondary" aria-label="edit">
-                                                <EditIcon onClick={() => handleUpdatePost(post._id)} />
-                                            </Fab>
-                                        </Tooltip>
-                                        <Tooltip title={"Obriši artikl"} disableFocusListener>
-                                            <DeleteIcon onClick={() => deletePost(post._id)}>
-                                                Obrisi
-                                            </DeleteIcon>
-                                        </Tooltip>
-                                    </Stack>
-                                </Box>
-                            }
 
                             {AuthService.isUser() &&
                                 <Box sx={{marginTop: "auto", mb: 1}}>
@@ -234,14 +155,8 @@ function Posts(props: { numberOfPosts?: number; }) {
                     </Grid>
                 ))}
             </Grid>
-            <UpdatePostDialog
-                open={isUpdateDialogOpen}
-                handleClose={handleCloseUpdateDialog}
-                handleUpdatePostData={handleUpdatePostData}
-                post={selectedPost}
-            />
         </Container>
     );
 }
 
-export default Posts;
+export default Action;
