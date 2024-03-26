@@ -6,7 +6,19 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useNavigate} from "react-router-dom";
-import {Card, CardMedia, debounce, Fab, Stack} from '@mui/material';
+import {
+    Alert,
+    Card,
+    CardMedia,
+    debounce,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Fab,
+    Stack
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +27,7 @@ import UpdatePostDialog from './UpdatePostDialog';
 import AuthService from "./auth/AuthService";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tooltip from '@mui/material/Tooltip';
+import Button from "@mui/material/Button";
 
 
 function Posts(props: { numberOfPosts?: number; }) {
@@ -22,6 +35,7 @@ function Posts(props: { numberOfPosts?: number; }) {
     const navigate = useNavigate();
     const [selectedPost, setSelectedPost] = useState<Post | null>(null);
     const [isUpdateDialogOpen, setUpdateDialogOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const fetchPosts = async (numberOfPosts?: number) => {
         const suffix = numberOfPosts ? `?numberOfPosts=${numberOfPosts}` : "";
@@ -52,6 +66,7 @@ function Posts(props: { numberOfPosts?: number; }) {
         } catch (error) {
             console.error('Greška kod brisanja:', error);
         }
+        handleClose();
     };
 
     const handleUpdatePost = (id: string) => {
@@ -83,7 +98,6 @@ function Posts(props: { numberOfPosts?: number; }) {
         }
     };
 
-
     const handleBuy = async (id: string, kolicina: number, cijena: number) => {
         const currentUser = AuthService.getCurrentUser();
         const userId = currentUser.id;
@@ -114,6 +128,17 @@ function Posts(props: { numberOfPosts?: number; }) {
         return newPrice;
     }
 
+    const [openDialogId, setOpenDialogId] = useState<string | null>(null);
+
+    const handleClickOpen = (postId: string) => {
+        setOpenDialogId(postId);
+    };
+
+    const handleClose = () => {
+        setOpenDialogId(null);
+    };
+
+
     return (
         <Container maxWidth="lg">
             {AuthService.isAdmin() &&
@@ -131,7 +156,7 @@ function Posts(props: { numberOfPosts?: number; }) {
             <Grid container spacing={2} sx={{ mt: 5, mb: 5}}>
                 {posts.map((post, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Card variant="outlined" sx={{ width: "100%", maxWidth: 1200, aspectRatio: 8 / 13, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        <Card variant="outlined" sx={{ width: "100%", aspectRatio: 8 / 13, display: 'flex', flexDirection: 'column'}}>
                             <Box>
                                 <Stack justifyContent="space-between" alignItems="center">
                                     <CardMedia
@@ -184,7 +209,7 @@ function Posts(props: { numberOfPosts?: number; }) {
                                     </Typography>
                                 </Stack>
                             </Box>
-                            {AuthService.isAdmin() &&
+                            {AuthService.isAdmin() && (
                                 <Box sx={{marginTop: "auto", mb: 2, ml: 2, mr: 2}}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                                         <Tooltip title={"Promjeni artikl"} disableFocusListener>
@@ -192,14 +217,28 @@ function Posts(props: { numberOfPosts?: number; }) {
                                                 <EditIcon onClick={() => handleUpdatePost(post._id)} />
                                             </Fab>
                                         </Tooltip>
-                                        <Tooltip title={"Obriši artikl"} disableFocusListener>
-                                            <DeleteIcon onClick={() => deletePost(post._id)}>
+                                        <Tooltip title={"Obriši artikl"}>
+                                            <DeleteIcon onClick={() => handleClickOpen(post._id)}>
                                                 Obrisi
                                             </DeleteIcon>
                                         </Tooltip>
+                                        <Dialog open={openDialogId === post._id} onClose={handleClose}>
+                                            <DialogTitle id="alert-dialog-title">{"Obrisati artikl ?"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText>
+                                                    Klikom na opciju "DA" potvrditi brisanje artikla.
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleClose}>Ne</Button>
+                                                <Button onClick={() => deletePost(post._id)} autoFocus>
+                                                    Da
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
                                     </Stack>
                                 </Box>
-                            }
+                            )}
 
                             {AuthService.isUser() &&
                                 <Box sx={{marginTop: "auto", mb: 1}}>

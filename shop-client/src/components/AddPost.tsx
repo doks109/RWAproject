@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Post } from './types/PostType';
 import {useNavigate} from "react-router-dom";
-import {Box, Button, CssBaseline, FormControl, TextField, Typography} from "@mui/material";
+import {Autocomplete, Box, Button, CssBaseline, FormControl, TextField, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import AuthService from "./auth/AuthService";
@@ -20,6 +20,11 @@ function AddPost(){
         raspolozivo: 0,
         putanjaSlike: ''
     });
+
+    const odabirKategorije = [
+        { label: "Bijela tehnika"},
+        { label: "Osobna računala"}
+    ]
 
 
     const onSubmit = async (e: React.FormEvent<HTMLElement>) => {

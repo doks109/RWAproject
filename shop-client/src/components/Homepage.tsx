@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './style/Homepage.css';
 import Typography from "@mui/material/Typography";
 import { Box } from '@mui/material';
@@ -12,65 +12,66 @@ import Panasonic from "./style/panasonic.jpg";
 
 import Slider from "./Slider";
 import Posts from './Posts';
+import Container from "@mui/material/Container";
 
 const Images = [Gorenje, Samsung, Lg, Toshiba, Panasonic];
 
 function Homepage(){
     return (
-        <>
-            <section className="jumbotron">
-                <div className={"naslovni-tekst"} >
-                    <Typography display={'block'} variant={'h4'} color='text.secondary'>
-                        Pokvario Vam se hladnjak ili televizor?
-                    </Typography>
-                    <Typography display={'block'} variant={"h4"} color='text.secondary'>
-                        Tražite novu perilicu za suđe?
-                    </Typography>
-                    <Typography display={'block'} variant='h2'>
-                        Dobrodošli na pravo mjesto!
-                    </Typography>
-                    <Typography display={'block'} variant={'h1'}>
-                        Shop d.o.o.
-                    </Typography>
-                    <Typography display={'block'} variant={'h4'} color='text.secondary'>
-                        Pronađite savršen uređaj za sebe!
-                    </Typography>
-                </div>
-                <Box component="img" alt="Naslovna slika." src={Front} />
-            </section>
+            <Container maxWidth="xl">
+                <Box className="jumbotron">
+                    <Box className={"naslovni-tekst"} >
+                        <Typography display={'block'} variant={'h4'} color='text.secondary'>
+                            Pokvario Vam se hladnjak ili televizor?
+                        </Typography>
+                        <Typography display={'block'} variant={"h4"} color='text.secondary'>
+                            Tražite novu perilicu za suđe?
+                        </Typography>
+                        <Typography display={'block'} variant='h2'>
+                            Dobrodošli na pravo mjesto!
+                        </Typography>
+                        <Typography display={'block'} variant={'h1'}>
+                            Shop d.o.o.
+                        </Typography>
+                        <Typography display={'block'} variant={'h4'} color='text.secondary'>
+                            Pronađite savršen uređaj za sebe!
+                        </Typography>
+                    </Box>
+                    <Box component="img" alt="Naslovna slika." src={Front} />
+                </Box>
 
-            <section className="about">
-                <Box component="img" alt="Slika iz daljine." src={Outside}/>
-                <div className={"about-tekst"}>
-                    <Typography display={'block'} variant={'h2'}>
-                        O nama
-                    </Typography>
-                    <Typography display={'block'} variant={'h5'}>
-                        Nalazimo se u Buzetu na adresi Sportska ulica 89.
-                    </Typography>
-                </div>
-            </section>
+                <Box className="about">
+                    <Box component="img" alt="Slika iz daljine." src={Outside}/>
+                    <Box className={"about-tekst"}>
+                        <Typography display={'block'} variant={'h2'}>
+                            O nama
+                        </Typography>
+                        <Typography display={'block'} variant={'h5'}>
+                            Nalazimo se u Buzetu na adresi Sportska ulica 89.
+                        </Typography>
+                    </Box>
+                </Box>
 
-            <section className="marke">
-                <div className="marke-tekst">
-                    <Typography variant='h4'>
-                        Zastupljene robne marke
-                    </Typography>
-                </div>
-                <div className="slider">
-                    <Slider imageUrls={Images} />
-                </div>
-            </section>
+                <Box className="marke">
+                    <Box className="marke-tekst">
+                        <Typography variant='h4'>
+                            Zastupljene robne marke
+                        </Typography>
+                    </Box>
+                    <Box className="slider">
+                        <Slider imageUrls={Images} />
+                    </Box>
+                </Box>
 
-            <section className="ponuda">
-                <div className={"ponuda-tekst"}>
-                    <Typography variant='h4'>
-                        Izdvojeno iz ponude
-                    </Typography>
-                    <Posts numberOfPosts={3} />
-                </div>
-            </section>
-        </>
+                <Box className="ponuda">
+                    <Box className={"ponuda-tekst"}>
+                        <Typography variant='h4'>
+                            Izdvojeno iz ponude
+                        </Typography>
+                        <Posts numberOfPosts={3} />
+                    </Box>
+                </Box>
+            </Container>
     );
 }
 

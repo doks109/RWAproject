@@ -170,16 +170,16 @@ function ShoppingCart() {
     const handleDelete3 = useCallback(handleDelete2, []);
 
     return (
-        <Container>
+        <Container maxWidth={"lg"}>
             {AuthService.isUser() &&
                 <Box>
                     <Grid container spacing={2} sx={{ mt: 5, mb: 5}}>
-                        <Card sx={{ ml: 2,  maxWidth: 1200, width: '100%' }} variant="outlined">
+                        <Card sx={{ ml: 2, width: '100%' }} variant="outlined">
                             <CardContent sx={{justifyContent: 'space-between', display: 'flex', flexDirection: 'row', mt: 1}}>
                                 <Typography variant="h5">
                                     Ukupna cijena: {totalPrice.toFixed(2)} €
                                 </Typography>
-                                <Button onClick={() => handleRefresh()} variant="contained" startIcon={<RefreshIcon />}>
+                                <Button onClick={() => handleRefresh()} variant="contained" startIcon={<RefreshIcon />} sx={{mr: 2}}>
                                     Osvježi
                                 </Button>
                                 <Button onClick={() => handleClearCart()} variant="contained" color={"secondary"} startIcon={<DeleteIcon />}>
@@ -188,10 +188,10 @@ function ShoppingCart() {
                             </CardContent>
                         </Card>
                         {posts.map((post, index) => (
-                            <Grid item xs={12} sm={12} md={12} key={index}>
-                                <Card sx={{ display: 'flex', flexDirection: 'row', maxWidth: 1200, width: '100%' }} variant="outlined">
+                            <Grid item xs={12} key={index}>
+                                <Card sx={{ display: 'flex', flexDirection: 'row', width: '100%'}} variant="outlined">
                                     <CardMedia
-                                        sx={{ width: '25%', aspectRatio: 10 / 8 }}
+                                        sx={{ width: '25%', aspectRatio: 11 / 8 }}
                                         image={post.putanjaSlike}
                                         title={post.ime}
                                     />
