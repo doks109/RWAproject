@@ -8,7 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Document(collection = "users")
@@ -32,6 +34,12 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public String cartId;
+    public List<String> orders = new ArrayList<>();
+    private String name;
+    private String surname;
+    private String address;
+
+
 
     public User(){
     }
@@ -43,6 +51,7 @@ public class User {
     public void setCartId(String cartId) {
         this.cartId = cartId;
     }
+
 
     public User(String username, String email, String password){
         this.username = username;
@@ -89,5 +98,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

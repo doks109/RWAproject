@@ -41,10 +41,54 @@ public class PostsController {
             posts = postRepository.findAll(limit).getContent();
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }
-
         posts = postRepository.findAll();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+    public String getCategory(String category){
+        switch(category) {
+            case "1":
+                return "Bijela tehnika";
+            case "2":
+                return "Tv / Audio";
+            case "3":
+                return "Osobna računala";
+        }
+        return "";
+    }
+    @GetMapping("/filter/{categoryNumber}")
+    public ResponseEntity<List<Post>> filterByCategory(@PathVariable String categoryNumber){
+        List<Post> posts;
+        List<Post> filteredPosts = new ArrayList<>();
+
+        posts = postRepository.findAll();
+        if(!categoryNumber.equals("0")) {
+            for(Post post : posts){
+                if(post.getKategorija().equals(getCategory(categoryNumber))){
+                    filteredPosts.add(post);
+                }
+            }
+        }
+        else{
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(filteredPosts, HttpStatus.OK);
+    }
+
+    @GetMapping("/priceFilter/{price1}/{price2}")
+    public ResponseEntity<List<Post>> filterByPrice(@PathVariable int price1, @PathVariable int price2){
+        List<Post> posts;
+        List<Post> filteredPosts = new ArrayList<>();
+
+        posts = postRepository.findAll();
+        for(Post post : posts) {
+            if (post.getCijena() >= price1 && post.getCijena() <= price2) {
+                filteredPosts.add(post);
+            }
+        }
+        return new ResponseEntity<>(filteredPosts, HttpStatus.OK);
+    }
+
+
     @GetMapping("/discount")
     public ResponseEntity<List<Post>> getDiscountPosts(){
         List<Post> posts;

@@ -14,6 +14,7 @@ import AuthService from "./auth/AuthService";
 import {Avatar, Menu, MenuItem, Tooltip} from '@mui/material';
 import Container from "@mui/material/Container";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 
 export const navItems = [
@@ -55,11 +56,17 @@ export default function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const handleOpenCart = () =>{
+    const handleOpenCart = () => {
         navigate("/cart")
     }
-    const handleLogin = () =>{
+    const handleLogin = () => {
         navigate("/login")
+    }
+    const handleAdminOrders = () => {
+        navigate("/adminHistory")
+    }
+    const handleAdminDash = () => {
+        navigate("/adminDash")
     }
 
     return (
@@ -172,21 +179,35 @@ export default function ResponsiveAppBar() {
                         ))}
                     </Box>
 
+                    {AuthService.isAdmin() && (
+                        <Box sx={{ flexGrow: 0 }}>
+                            <IconButton color={"inherit"} onClick={handleAdminDash} sx={{ mr: 2, p: 0 }}>
+                                <DashboardIcon />
+                            </IconButton>
+                        </Box>
+                    )}
 
-                    {AuthService.isUser()
-                        ?
+                    {AuthService.isUser() &&
                         <Box sx={{ flexGrow: 0 }}>
                             <IconButton color={"inherit"} onClick={handleOpenCart} sx={{ mr: 2, p: 0 }}>
                                 <ShoppingCartIcon />
                             </IconButton>
                         </Box>
-                        :
+                    }
+                    {(!AuthService.isUser() && !AuthService.isAdmin()) &&
                         <Box sx={{ flexGrow: 0 }}>
                             <IconButton color={"inherit"} onClick={handleLogin} sx={{ mr: 2, p: 0 }}>
                                 <ShoppingCartIcon />
                             </IconButton>
                         </Box>
                     }
+                    {AuthService.isAdmin() && (
+                        <Box sx={{ flexGrow: 0 }}>
+                            <IconButton color={"inherit"} onClick={handleAdminOrders} sx={{ mr: 2, p: 0 }}>
+                                <ShoppingCartIcon />
+                            </IconButton>
+                        </Box>
+                    )}
 
 
                     <Box sx={{ flexGrow: 0 }}>

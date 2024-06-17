@@ -10,6 +10,7 @@ public class CartItem {
     private String cartId;
     private String itemId;
     private int kolicina;
+    private boolean kupljeno;
 
     public String getId() {
         return id;
@@ -43,6 +44,15 @@ public class CartItem {
         this.kolicina = kolicina;
     }
 
+    public boolean isKupljeno() {
+        return kupljeno;
+    }
+
+    public void setKupljeno(boolean kupljeno) {
+        this.kupljeno = kupljeno;
+    }
+
     public CartItem() {
     }
+
 }

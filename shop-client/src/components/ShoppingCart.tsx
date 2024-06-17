@@ -5,7 +5,18 @@ import { Post } from './types/PostType';
 import Box from '@mui/material/Box';
 import AuthService from './auth/AuthService';
 import Grid from '@mui/material/Grid';
-import {Button, Card, CardContent, CardMedia, debounce, Fab, Stack} from '@mui/material';
+import {
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    debounce,
+    Dialog, DialogActions,
+    DialogContent, DialogContentText,
+    DialogTitle,
+    Fab,
+    Stack
+} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
@@ -19,6 +30,7 @@ function ShoppingCart() {
     const [itemCounts, setItemCounts] = useState<Record<string, number>>({});
     const navigate = useNavigate();
     const [totalPrice, setTotalPrice] = useState(0);
+    const [additionalInfoRequired, setAdditionalInfoRequired] = useState(false);
 
     const fetchUserPosts = async () => {
         const currentUser = AuthService.getCurrentUser();
@@ -131,8 +143,30 @@ function ShoppingCart() {
         }
     }
 
+    const fetchUserData = async () => {
+        const currentUser = AuthService.getCurrentUser();
+        const userId = currentUser.id;
+
+        try {
+            const token = AuthService.getToken();
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            const response = await axios.get(`http://localhost:8080/user/${userId}`, { headers });
+
+            const userData = response.data;
+            const isInfoRequired = !userData.name || !userData.surname || !userData.address;
+            setAdditionalInfoRequired(isInfoRequired);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+
     useEffect(() => {
         fetchUserPosts().then((data) => {
+
             const uniquePosts = data.filter((post: Post, index: number, self: any) =>
                     index === self.findIndex((p: Post) => (
                         p._id === post._id
@@ -157,6 +191,7 @@ function ShoppingCart() {
 
             setItemCounts(itemCountsObj);
         });
+        fetchUserData();
     }, []);
     function calculatePrice(cijena: number, popust: number){
         let newPrice;
@@ -168,6 +203,38 @@ function ShoppingCart() {
     const handleBuy3 = useCallback(handleBuy2, []);
     const handleDelete2 = debounce(handleDelete, 300);
     const handleDelete3 = useCallback(handleDelete2, []);
+
+    const handlePurchase = async () => {
+        const currentUser = AuthService.getCurrentUser();
+        const userId = currentUser.id;
+
+        try {
+            const token = AuthService.getToken();
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            await axios.post(`http://localhost:8080/placeOrder/${userId}`, userId,{ headers });
+            handleRefresh();
+        } catch (error) {
+            console.error('Greška kod kupnje', error);
+        }
+    }
+
+    const handleAddInfo = async () => {
+        navigate("/addUserInfo")
+    }
+
+    const handleHistory = () =>{
+        navigate("/history");
+    }
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <Container maxWidth={"lg"}>
@@ -185,6 +252,35 @@ function ShoppingCart() {
                                 <Button onClick={() => handleClearCart()} variant="contained" color={"secondary"} startIcon={<DeleteIcon />}>
                                     Obriši sve artikle
                                 </Button>
+                                {additionalInfoRequired ? (
+                                    <Button onClick={() => handleAddInfo()} variant="contained">
+                                        Kupi
+                                    </Button>
+                                ):(
+                                    <Box>
+                                        <Button onClick={() => handleClickOpen()} variant="contained">
+                                            Kupi
+                                        </Button>
+                                        <Dialog open={open} onClose={handleClose}>
+                                            <DialogTitle id="alert-dialog-title">{"Obrisati artikl ?"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText>
+                                                    Želite li ažurirati osobne podatke prije kupnje?
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={() => handlePurchase()} variant="contained">
+                                                    Ne
+                                                </Button>
+                                                <Button onClick={() => handleAddInfo()} variant="contained">
+                                                    Ažuriraj
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                    </Box>
+                                )
+                                }
+
                             </CardContent>
                         </Card>
                         {posts.map((post, index) => (
@@ -234,6 +330,13 @@ function ShoppingCart() {
                                 </Card>
                             </Grid>
                         ))}
+                        <Card sx={{ ml: 2, mt: 4, width: '100%' }} variant="outlined">
+                            <CardContent sx={{ display: 'flex', flexDirection: 'row', mt: 1}}>
+                                <Button onClick={() => handleHistory()} variant="contained">
+                                    Povijest narudžbi
+                                </Button>
+                            </CardContent>
+                        </Card>
                     </Grid>
                 </Box>
             }

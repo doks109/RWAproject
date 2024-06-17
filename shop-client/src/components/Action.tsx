@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useNavigate} from "react-router-dom";
-import {Card, CardMedia, debounce, Fab, Stack} from '@mui/material';
+import {Card, CardMedia, debounce, Fab, Paper, Stack} from '@mui/material';
 import Divider from "@mui/material/Divider";
 import AuthService from "./auth/AuthService";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -68,6 +68,7 @@ function Action() {
             <Grid container spacing={2} sx={{ mt: 5, mb: 5}}>
                 {posts.map((post, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
+                        <Paper elevation={8}>
                         <Card variant="outlined" sx={{ width: "100%", maxWidth: 1200, aspectRatio: 8 / 13, display: 'flex', flexDirection: 'column', height: '100%' }}>
                             <Box>
                                 <Stack justifyContent="space-between" alignItems="center">
@@ -152,6 +153,7 @@ function Action() {
                                 </Box>
                             }
                         </Card>
+                        </Paper>
                     </Grid>
                 ))}
             </Grid>

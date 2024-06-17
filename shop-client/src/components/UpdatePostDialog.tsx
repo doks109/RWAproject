@@ -118,8 +118,8 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseDialog}>Cancel</Button>
-                <Button onClick={handleUpdate}>Update</Button>
+                <Button onClick={handleCloseDialog}>Odustani</Button>
+                <Button onClick={handleUpdate}>Ažuriraj</Button>
             </DialogActions>
         </Dialog>
     );

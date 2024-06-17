@@ -11,7 +11,10 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ShoppingCart from "./components/ShoppingCart";
 import Action from "./components/Action";
-
+import UserOrderHistory from "./components/UserOrderHistory";
+import AdminOrderHistory from "./components/AdminOrderHistory";
+import UserInfo from "./components/UserInfo";
+import AdminDash from "./components/AdminDash";
 
 
 function App() {
@@ -29,6 +32,10 @@ function App() {
                           <Route path="/register" element={ <Register/> } />
                           <Route path="/login" element={<Login />} />
                           <Route path="/cart" element={<ShoppingCart />} />
+                          <Route path="/history" element={<UserOrderHistory />} />
+                          <Route path="/adminHistory" element={<AdminOrderHistory />} />
+                          <Route path="/addUserInfo" element={<UserInfo />} />
+                          <Route path="/adminDash" element={<AdminDash />} />
                       </Routes>
                   </div>
                   <Footer />
