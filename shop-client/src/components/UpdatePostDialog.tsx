@@ -38,7 +38,7 @@ const UpdatePostDialog: React.FC<UpdatePostDialogProps> = ({ open, handleClose, 
 
     return (
         <Dialog open={open} onClose={handleCloseDialog}>
-            <DialogTitle>Update Post</DialogTitle>
+            <DialogTitle>Ažuriraj artikl</DialogTitle>
             <DialogContent>
                 <TextField
                     autoFocus

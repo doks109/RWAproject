@@ -15,6 +15,7 @@ import UserOrderHistory from "./components/UserOrderHistory";
 import AdminOrderHistory from "./components/AdminOrderHistory";
 import UserInfo from "./components/UserInfo";
 import AdminDash from "./components/AdminDash";
+import ChatRoom from "./components/ChatRoom";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                           <Route path="/adminHistory" element={<AdminOrderHistory />} />
                           <Route path="/addUserInfo" element={<UserInfo />} />
                           <Route path="/adminDash" element={<AdminDash />} />
+                          <Route path="/chat" element={<ChatRoom />} />
                       </Routes>
                   </div>
                   <Footer />

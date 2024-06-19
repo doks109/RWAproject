@@ -170,7 +170,7 @@ function AdminDash() {
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="orderCount" fill="#8884d8" name="Broj narudžbi po mjesecima" />
+                                <Bar dataKey="orderCount" fill="#8884d8" name="Broj narudžbi" />
                             </BarChart>
                         </ResponsiveContainer>
 

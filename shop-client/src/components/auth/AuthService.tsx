@@ -70,6 +70,15 @@ const AuthService = () => {
         return "";
     }
 
+    const getUsername = () => {
+        const user = getCurrentUser();
+        if(user){
+            if(user.username){
+                return user.username;
+            }
+        }
+    }
+
     return {
         login,
         logout,
@@ -77,7 +86,8 @@ const AuthService = () => {
         getCurrentUser,
         isAdmin,
         isUser,
-        getToken
+        getToken,
+        getUsername
     };
 };
 

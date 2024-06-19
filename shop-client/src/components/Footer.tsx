@@ -13,17 +13,25 @@ export default function Footer() {
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <Box display="flex" justifyContent="center" alignItems="center">
-                            <Link href="" color="inherit">
+                            <Link href="/" color="inherit">
+                                Home
                             </Link>
                         </Box>
                         <Box display="flex" justifyContent="center" alignItems="center">
-                            <Link href="" color="inherit">
+                            <Link href="/about" color="inherit">
+                                O nama
                             </Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Box display="flex" justifyContent="center" alignItems="center">
-                            <Link href="" color="inherit">
+                            <Link href="/ponuda" color="inherit">
+                                Ponuda
+                            </Link>
+                        </Box>
+                        <Box display="flex" justifyContent="center" alignItems="center">
+                            <Link href="/akcija" color="inherit">
+                                Akcija
                             </Link>
                         </Box>
                     </Grid>

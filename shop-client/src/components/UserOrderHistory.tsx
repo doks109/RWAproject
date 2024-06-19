@@ -72,7 +72,7 @@ function UserOrderHistory() {
                                         <CardContent>
                                             <Typography variant="body1">Broj narudžbe: {order.id}</Typography>
                                             <Typography variant="h6">Datum narudžbe: {new Date(order.date).toLocaleDateString()}</Typography>
-                                            <Typography variant="body1">Cijena: {order.price} €</Typography>
+                                            <Typography variant="body1">Cijena: {order.price.toFixed(2)} €</Typography>
                                             <Typography variant="body1">Kupac: {order.customerName} {order.customerSurname}</Typography>
                                             <Typography variant="body1">Adresa: {order.customerAddress}</Typography>
                                         </CardContent>

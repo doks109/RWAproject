@@ -15,6 +15,7 @@ import {Avatar, Menu, MenuItem, Tooltip} from '@mui/material';
 import Container from "@mui/material/Container";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import Link from '@mui/material/Link';
 
 
 export const navItems = [
@@ -141,7 +142,7 @@ export default function ResponsiveAppBar() {
                         component="img"
                         sx={{
                             mr: 2, mt: 0, mb: 0,
-                            width: "12%",
+                            width: "10%",
                             display: { xs: 'flex', md: 'none' },
                         }}
                         alt="Logo."
@@ -157,8 +158,8 @@ export default function ResponsiveAppBar() {
                             display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
                             fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 500,
+                            letterSpacing: '.1rem',
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
@@ -177,6 +178,12 @@ export default function ResponsiveAppBar() {
                                 {navItem.title}
                             </Button>
                         ))}
+                    </Box>
+
+                    <Box>
+                        <Link href={"/chat"} color="inherit" sx={{ mr: 10}}>
+                            Trebaš pomoć ?
+                        </Link>
                     </Box>
 
                     {AuthService.isAdmin() && (

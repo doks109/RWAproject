@@ -192,9 +192,9 @@ function Posts(props: { numberOfPosts?: number; }) {
     }
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{mb: 5}}>
             {AuthService.isAdmin() && location.pathname !== "/" &&
-                <Box alignItems="center" sx={{ display: 'flex', flexDirection: 'row', mt: 5}}>
+                <Box alignItems="center" sx={{ display: 'flex', flexDirection: 'row', mt: 5, mb: 3}}>
                     <Typography variant="h5">
                         Dodaj novi artikl
                     </Typography>
@@ -205,42 +205,67 @@ function Posts(props: { numberOfPosts?: number; }) {
                     </Tooltip>
                 </Box>
             }
-
             {!AuthService.isAdmin() && location.pathname !== "/" && (
                 <Card sx={{ width: '100%', mt: 5, mb: 5 }} variant="outlined">
-                    <CardContent sx={{justifyContent: 'space-between', display: 'flex', flexDirection: 'row', mt: 1}}>
-                        <Box sx={{ width: 300 }}>
-                            <Typography id="range-slider" gutterBottom>
-                                Raspon cijene
-                            </Typography>
-                            <Slider
-                                value={price}
-                                min={0}
-                                max={5000}
-                                onChange={handleChange}
-                                valueLabelDisplay="auto"
-                                disableSwap
-                            />
-                        </Box>
-                        <Select
-                            variant="outlined"
-                            value={categoryFilter}
-                            onChange={(e) => setCategoryFilter(e.target.value)}
-                        >
-                            {categories.map((category, index) => (
-                                <MenuItem key={index} value={category.id}>{category.label}</MenuItem>
-                            ))}
-                        </Select>
-                        <Select value={sortOrder} onChange={(e) => setSortOrder(e.target.value as 'ascending' | 'descending')}>
-                            <MenuItem value="ascending">Najniža cijena</MenuItem>
-                            <MenuItem value="descending">Najviša cijena</MenuItem>
-                        </Select>
-                        <Button variant="outlined" startIcon={<FilterAltTwoToneIcon />} onClick={() => handleFilter()}>
-                            Filtriraj
-                        </Button>
-                        <Button onClick={() => handleRefresh()} variant="outlined" startIcon={<RefreshIcon />} sx={{mr: 2}}>
-                            Očisti sve
-                        </Button>
+                    <CardContent sx={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'column', mt: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Box sx={{ width: '100%' }}>
+                                    <Typography id="range-slider" gutterBottom>
+                                        Raspon cijene
+                                    </Typography>
+                                    <Slider
+                                        value={price}
+                                        min={0}
+                                        max={5000}
+                                        onChange={handleChange}
+                                        valueLabelDisplay="auto"
+                                        disableSwap
+                                    />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Select
+                                    variant="outlined"
+                                    value={categoryFilter}
+                                    onChange={(e) => setCategoryFilter(e.target.value)}
+                                    fullWidth
+                                >
+                                    {categories.map((category, index) => (
+                                        <MenuItem key={index} value={category.id}>{category.label}</MenuItem>
+                                    ))}
+                                </Select>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Select
+                                    value={sortOrder}
+                                    onChange={(e) => setSortOrder(e.target.value as 'ascending' | 'descending')}
+                                    fullWidth
+                                >
+                                    <MenuItem value="ascending">Najniža cijena</MenuItem>
+                                    <MenuItem value="descending">Najviša cijena</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<FilterAltTwoToneIcon />}
+                                    onClick={handleFilter}
+                                    fullWidth
+                                >
+                                    Filtriraj
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    onClick={handleRefresh}
+                                    variant="outlined"
+                                    startIcon={<RefreshIcon />}
+                                >
+                                    Očisti sve
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </CardContent>
                 </Card>
             )}

@@ -262,7 +262,7 @@ function ShoppingCart() {
                                             Kupi
                                         </Button>
                                         <Dialog open={open} onClose={handleClose}>
-                                            <DialogTitle id="alert-dialog-title">{"Obrisati artikl ?"}</DialogTitle>
+                                            <DialogTitle id="alert-dialog-title">{"Ažurirati podatke ?"}</DialogTitle>
                                             <DialogContent>
                                                 <DialogContentText>
                                                     Želite li ažurirati osobne podatke prije kupnje?
