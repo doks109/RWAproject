@@ -113,13 +113,12 @@ const ChatRoom: React.FC = () => {
         if (stompClient) {
             const chatMessage: ChatMessage = {
                 senderName: userData.username,
-                receiverName: "admin", // Send message to admin
+                receiverName: "admin",
                 message: userData.message,
-                date: new Date().toISOString(), // Set the current date and time
+                date: new Date().toISOString(),
                 status: "MESSAGE"
             };
 
-            // Update UI immediately
             const newChats = privateChats.get("admin") || [];
             newChats.push(chatMessage);
             privateChats.set("admin", newChats);
@@ -135,7 +134,7 @@ const ChatRoom: React.FC = () => {
             const chatMessage: ChatMessage = {
                 date: new Date().toISOString(),
                 senderName: userData.username,
-                receiverName: tab, // Send message to selected user
+                receiverName: tab,
                 message: userData.message,
                 status: "MESSAGE"
             };

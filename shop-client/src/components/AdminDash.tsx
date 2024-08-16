@@ -117,7 +117,7 @@ function AdminDash() {
             {AuthService.isAdmin() && (
                 <Box sx={{mt: 5}}>
                     <Typography variant="h4" gutterBottom>
-                        Najprodavaniji artikl
+                        Najprodavaniji proizvod
                     </Typography>
                     <Grid container spacing={2} sx={{ mb: 5 }}>
                         {posts && posts.map((post, index) => (

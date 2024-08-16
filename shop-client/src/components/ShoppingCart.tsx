@@ -47,7 +47,7 @@ function ShoppingCart() {
             console.error('Greška kod dohvata:', error);
         }
     };
-    const fetchUserTotalPrice = async ():Promise<number> => {
+    const fetchUserTotalPrice = async ():Promise<number> => { 
         const currentUser = AuthService.getCurrentUser();
         const userId = currentUser.id;
 
@@ -250,7 +250,7 @@ function ShoppingCart() {
                                     Osvježi
                                 </Button>
                                 <Button onClick={() => handleClearCart()} variant="contained" color={"secondary"} startIcon={<DeleteIcon />}>
-                                    Obriši sve artikle
+                                    Obriši sve proizvode
                                 </Button>
                                 {additionalInfoRequired ? (
                                     <Button onClick={() => handleAddInfo()} variant="contained">
@@ -314,12 +314,12 @@ function ShoppingCart() {
                                                 <Typography variant="h6">
                                                     Broj komada: {itemCounts[post._id] || 0}
                                                 </Typography>
-                                                <Tooltip disableFocusListener title={"Ukloni artikl !"}>
+                                                <Tooltip disableFocusListener title={"Ukloni proizvod !"}>
                                                     <Fab size="small" color="secondary" aria-label="delete" onClick={() => handleDelete3(post._id, calculatePrice(post.cijena, post.popust))}>
                                                         <RemoveCircleOutlineTwoToneIcon />
                                                     </Fab>
                                                 </Tooltip>
-                                                <Tooltip disableFocusListener title={"Dodaj artikl !"}>
+                                                <Tooltip disableFocusListener title={"Dodaj proizvod !"}>
                                                     <Fab size="small" color="primary" aria-label="buy" onClick={() => handleBuy3(post._id, 1, calculatePrice(post.cijena, post.popust))}>
                                                         <AddCircleOutlineTwoToneIcon />
                                                     </Fab>

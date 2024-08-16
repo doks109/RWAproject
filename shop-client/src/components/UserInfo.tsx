@@ -58,7 +58,7 @@ function UserForm() {
                         alignItems: 'center',
                     }}
                 >
-                    <Typography variant="h5">Update User Information</Typography>
+                    <Typography variant="h5">Ažuriraj osobne podatke</Typography>
                     <form onSubmit={onSubmit}>
                         <FormControl>
                             <br />
@@ -67,7 +67,7 @@ function UserForm() {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                label="Name"
+                                label="Ime"
                                 required
                             /><br />
                             <TextField
@@ -75,7 +75,7 @@ function UserForm() {
                                 name="surname"
                                 value={formData.surname}
                                 onChange={handleChange}
-                                label="Surname"
+                                label="Prezime"
                                 required
                             /><br />
                             <TextField
@@ -83,11 +83,11 @@ function UserForm() {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                label="Address"
+                                label="Adresa"
                                 required
                             /><br />
-                            <Button type="submit" variant="contained" color="primary">Submit</Button><br />
-                            <Button onClick={handleClose} variant="contained" color="primary">Cancel</Button>
+                            <Button type="submit" variant="contained" color="primary">Potvrdi</Button><br />
+                            <Button onClick={handleClose} variant="contained" color="primary">Odustani</Button>
                         </FormControl>
                     </form>
                 </Box>

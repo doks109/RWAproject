@@ -218,7 +218,7 @@ export default function ResponsiveAppBar() {
 
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Otvori korisnički menu">
                             <IconButton size={"large"} onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="User picture" src={User}/>
                             </IconButton>

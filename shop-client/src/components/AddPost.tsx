@@ -62,7 +62,7 @@ function AddPost(){
                         flexDirection: "column",
                         alignItems: "center",
                     }}>
-                <Typography variant="h5">Dodaj artikl</Typography>
+                <Typography variant="h5">Dodaj proizvod</Typography>
                 <form onSubmit={(e) => onSubmit(e)} >
                     <FormControl>
                         <br />
@@ -71,7 +71,7 @@ function AddPost(){
                             name="ime"
                             value={formData.ime}
                             onChange={handleChange}
-                            label="Ime"
+                            label="Naziv"
                             required
                         /><br />
                         <TextField
@@ -122,8 +122,8 @@ function AddPost(){
                             label="Putanja slike"
                             required
                         /><br />
-                        <Button type="submit" variant="contained" color="primary">Dodaj artikl</Button><br />
-                        <Button onClick={handleClose} variant="contained" color="primary">Cancel</Button>
+                        <Button type="submit" variant="contained" color="primary">Dodaj Proizvod</Button><br />
+                        <Button onClick={handleClose} variant="contained" color="primary">Odustani</Button>
                     </FormControl>
                 </form>
                 </Box>

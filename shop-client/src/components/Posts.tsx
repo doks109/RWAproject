@@ -196,9 +196,9 @@ function Posts(props: { numberOfPosts?: number; }) {
             {AuthService.isAdmin() && location.pathname !== "/" &&
                 <Box alignItems="center" sx={{ display: 'flex', flexDirection: 'row', mt: 5, mb: 3}}>
                     <Typography variant="h5">
-                        Dodaj novi artikl
+                        Dodaj novi proizvod
                     </Typography>
-                    <Tooltip title={"Dodaj artikl"} disableFocusListener>
+                    <Tooltip title={"Dodaj proizvod"} disableFocusListener>
                         <Fab size="small" color="primary" aria-label="add" onClick={() => navigate("/addPost")} sx={{ ml: 2}}>
                             <AddIcon />
                         </Fab>
@@ -329,21 +329,21 @@ function Posts(props: { numberOfPosts?: number; }) {
                                 {AuthService.isAdmin() && (
                                     <Box sx={{marginTop: "auto", mb: 2, ml: 2, mr: 2}}>
                                         <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                            <Tooltip title={"Promjeni artikl"} disableFocusListener>
+                                            <Tooltip title={"Promjeni proizvod"} disableFocusListener>
                                                 <Fab size="small" color="secondary" aria-label="edit">
                                                     <EditIcon onClick={() => handleUpdatePost(post._id)} />
                                                 </Fab>
                                             </Tooltip>
-                                            <Tooltip title={"Obriši artikl"}>
+                                            <Tooltip title={"Obriši proizvod"}>
                                                 <DeleteIcon onClick={() => handleClickOpen(post._id)}>
                                                     Obrisi
                                                 </DeleteIcon>
                                             </Tooltip>
                                             <Dialog open={openDialogId === post._id} onClose={handleClose}>
-                                                <DialogTitle id="alert-dialog-title">{"Obrisati artikl ?"}</DialogTitle>
+                                                <DialogTitle id="alert-dialog-title">{"Obrisati proizvod ?"}</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
-                                                        Klikom na opciju "DA" potvrditi brisanje artikla.
+                                                        Klikom na opciju "DA" potvrditi brisanje proizvoda.
                                                     </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
